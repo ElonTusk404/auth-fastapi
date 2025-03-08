@@ -13,5 +13,5 @@ This repo contains my implementation of a simple but effective auth service that
 
 Below is the database schema used for this project:
 
-![Database Schema](https://raw.githubusercontent.com/ElonTusk404/auth-fastapi/main/auth-db.png)
+![Database Schema](https://raw.githubusercontent.com/ElonTusk404/auth-fastapi/raw/main/auth-db.png)
 

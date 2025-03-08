@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth
+spec:
+  replicas: 9
+  selector:
+    matchLabels:
+      app: auth
+  template:
+    metadata:
+      labels:
+        app: auth
+    spec:
+      containers:
+      - name: auth
+        image: elontusk404/auth-fastapi:1.0.1
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8000
+        env:
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: auth-secrets
+              key: DB_HOST
+        - name: DB_PORT
+          valueFrom:
+            secretKeyRef:
+              name: auth-secrets
+              key: DB_PORT
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: auth-secrets
+              key: DB_USER
+        - name: DB_PASS
+          valueFrom:
+            secretKeyRef:
+              name: auth-secrets
+              key: DB_PASS
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: auth-secrets
+              key: DB_NAME
+        - name: ACCESS_EXPIRE_MINUTES
+          valueFrom:
+            secretKeyRef:
+              name: auth-secrets
+              key: ACCESS_EXPIRE_MINUTES
+        - name: REFRESH_EXPIRE_DAYS
+          valueFrom:
+            secretKeyRef:
+              name: auth-secrets
+              key: REFRESH_EXPIRE_DAYS
+        - name: PRIVATE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: auth-secrets
+              key: PRIVATE_KEY
+        - name: PUBLIC_KEY
+          valueFrom:
+            secretKeyRef:
+              name: auth-secrets
+              key: PUBLIC_KEY
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8000
+          initialDelaySeconds: 10  # Задержка перед первой проверкой
+          periodSeconds: 30        # Как часто проверять
+          timeoutSeconds: 5        # Таймаут запроса
+          failureThreshold: 3      # Сколько неудач до перезапуска
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 8000
+          initialDelaySeconds: 5   # Задержка перед первой проверкой
+          periodSeconds: 10        # Как часто проверять
+          timeoutSeconds: 5        # Таймаут запроса
+          failureThreshold: 3      # Сколько неудач до исключения из сервиса

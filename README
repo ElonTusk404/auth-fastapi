@@ -1,0 +1,17 @@
+# Auth Microservice with FastAPI
+
+This is a learning project where I created an Authentication and Authorization microservice using FastAPI.
+
+## Overview
+
+This repo contains my implementation of a simple but effective auth service that handles:
+- User registration and login
+- JWT token-based authentication
+- Password hashing and security
+
+## Database Schema
+
+Below is the database schema used for this project:
+
+![Database Schema](auth-db.png)
+

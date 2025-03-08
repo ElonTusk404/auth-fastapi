@@ -10,8 +10,5 @@ This repo contains my implementation of a simple but effective auth service that
 - Password hashing and security
 
 ## Database Schema
-
-Below is the database schema used for this project:
-
 ![Image alt](https://i.imgur.com/g6mrM5q.png)
 
